@@ -8,12 +8,31 @@ def run_client():
   client_socket.connect(server_address)
 
   try:
-    message=b'Hello Server!'
-    print(f'Sending: {message}')
-    client_socket.sendall(message)
+    command = 'SET apple orange'
+    print(f'Sending: {command}')
+    client_socket.sendall(command.encode())
+    response = client_socket.recv(1024)
+    print(f'Received: {response.decode()}')
 
-    data = client_socket.recv(1024)
-    print(f'Received: {data}')
+    command = 'GET apple'
+    print(f'Sending: {command}')
+    client_socket.sendall(command.encode())
+    response = client_socket.recv(1024)
+    print(f'Received: {response.decode()}')
+
+    command = 'DEL apple'
+    print(f'Sending: {command}')
+    client_socket.sendall(command.encode())
+    response = client_socket.recv(1024)
+    print(f'Received: {response.decode()}')
+
+    command = 'GET apple'
+    print(f'Sending: {command}')
+    client_socket.sendall(command.encode())
+    response = client_socket.recv(1024)
+    print(f'Received: {response.decode()}')
+
+
   finally: 
       print('Closing Connection')
       client_socket.close()
